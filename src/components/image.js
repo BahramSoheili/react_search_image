@@ -1,11 +1,12 @@
-import React from 'react';
-const Image = (key, image) => {
+const Image = (props) => {
     return (
-            <div style={{gridRowEnd: `span ${this.state.spans}`}}>
-                <img 
-                    src={image.urls.regular}
-                    alt={image.alt_description} />
-            </div>
+        <div>
+            <img
+                src= {props.image.urls.regular}
+                alt= {props.image.alt_description}
+            />
+            <button>Accept</button>
+        </div>
         )
     }
 export default Image;
