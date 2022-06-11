@@ -7,9 +7,15 @@ import TopicButtons from './topicButtons'
 import SearchContext from './searchContext'
 import ImageContext from './imageContext'
 import ImageDialog from './imageDialog'
+import { useDispatch } from 'react-redux'
+import { addUser } from './state/userSlice'
+
+
+
 const API_KEY = process.env.REACT_APP_API_KEY
 const url = 'https://api.unsplash.com/search/photos'
 const SearchForm = () =>{
+  const dispatch = useDispatch()
   const initialValues = { firstName: "", surname: "", otherTopic: ""};
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({})
@@ -56,6 +62,10 @@ const SearchForm = () =>{
   useEffect(() => {
     console.log('topic= ', topic)
     if (Object.keys(formErrors).length === 0 && isSubmit && topic) {
+      dispatch(addUser({
+        firstName: formValues.firstName, 
+        surname: formValues.surname
+      }))
       onSearch()
     }
   }, [isSubmit])
@@ -124,7 +134,7 @@ const SearchForm = () =>{
             }
             <br></br>
             <br></br>
-            <input type="submit" label = "Search"/>
+            <input type="submit" label = "Search"/>          
           </div>
         </form>
         <br></br>

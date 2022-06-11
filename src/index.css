@@ -30,7 +30,11 @@ code {
 
 
 /* Modal */
-
+.image{ 
+  width: '50vw';
+  width: 600px;
+  height: 400px;
+}
 .modalContainer {
   display: flex;
   flex-direction: column;
