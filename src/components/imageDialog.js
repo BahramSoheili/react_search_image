@@ -3,12 +3,7 @@ import ImageContext from './imageContext'
 import ImageList from './imageList'
 import Button from 'react-bootstrap/Button'
 const ImageDialog = () => {
-  const {images, setImages, setOpenModal, setTopic} = useContext(ImageContext)
-  const close = () => {
-    setOpenModal(false)
-    setImages([])
-    setTopic('')
-  }
+  const {images, setReject} = useContext(ImageContext)
   return (
     <>
         <div className ='modalContainer'>
@@ -19,7 +14,7 @@ const ImageDialog = () => {
             </ImageContext.Provider>
           </div>
           <div>     
-            <Button className='btn' onClick={close}>
+            <Button className='btn' onClick={()=> setReject(true)}>
               Reject
             </Button>
           </div>

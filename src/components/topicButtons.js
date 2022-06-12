@@ -16,7 +16,7 @@ const radios = [
 const types = ['Travel', 'Cars', 'Wildlife', 'Technology','Other'];
 
 const TopicButtons= ()=> {
-  const {topic, setTopic} = useContext(SearchContext)
+  const {topic, setTopic, setOther} = useContext(SearchContext)
   const initialValues = {searchTopic: ""}
   const [formValues, setFormValues] = useState(initialValues)
   const [active, setActive] = useState(types[0]) 
@@ -32,7 +32,14 @@ const TopicButtons= ()=> {
   const setToggle = (type)=> {
     setActive(type)
     console.log('selected type = ', type)
-    setTopic(type);    
+    if(type != 'other'){
+      setTopic(type);
+      setOther(false);
+    }
+    else {
+      setTopic('');
+      setOther(true);
+    }
   }
   return (
     <ToggleButtonGroup type="radio" name="topics">

@@ -21,8 +21,10 @@ const SearchForm = () =>{
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
   const [topic, setTopic] = useState('')
+  const [other, setOther] = useState(false)  
   const [images, setImages] = useState([])
-  const [openModal, setOpenModal] = useState(true)
+  const [reject, setReject] = useState(false)
+
 
 
   const handleChange = (e) => {
@@ -34,6 +36,10 @@ const SearchForm = () =>{
     setFormErrors(validate(formValues))
     if(e.nativeEvent.submitter.localName === 'input'){
       console.log('Search submit')
+      if(other){
+        console.log('setTop to= ', formValues.otherTopic)
+        setTopic(formValues.otherTopic)
+      }
       setIsSubmit(true)
     }
     else {
@@ -69,6 +75,18 @@ const SearchForm = () =>{
       onSearch()
     }
   }, [isSubmit])
+  useEffect(() => {
+    console.log('reject: ', reject);
+    if (reject) {
+      setFormValues(initialValues) 
+      setFormErrors({})  
+      setIsSubmit(false)
+      setTopic('')
+      setOther(false)
+      setImages([])
+      setReject(false)
+    }
+  }, [reject])
   const onSearch = async() => {
     try {
       console.log('topic onSearch = ', topic)
@@ -112,11 +130,11 @@ const SearchForm = () =>{
               />
             </div>
             <p>{formErrors.surname}</p>
-            <SearchContext.Provider value = {{topic, setTopic}}>
+            <SearchContext.Provider value = {{topic, setTopic, setOther}}>
               <TopicButtons />       
             </SearchContext.Provider>
             {    
-              topic === 'other'? 
+              other? 
               <div>
                 <div className="field">
                 <br></br>
@@ -140,10 +158,10 @@ const SearchForm = () =>{
         <br></br>
         <div>
         {
-          images.length > 0 && openModal? 
+          images.length > 0? 
           <div>
             <ImageContext.Provider 
-                 value = {{images, setImages, setOpenModal, setTopic}}>
+                 value = {{images, setReject}}>
               <ImageDialog  />
             </ImageContext.Provider>
           </div>
